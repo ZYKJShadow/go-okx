@@ -3,7 +3,7 @@ package restapi
 import (
 	"errors"
 	"fmt"
-	"go-okx/define"
+	"github.com/ZYKJShadow/go-okx/define"
 	"net/http"
 	"net/url"
 )

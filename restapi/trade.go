@@ -3,8 +3,8 @@ package restapi
 import (
 	"errors"
 	"fmt"
+	"github.com/ZYKJShadow/go-okx/define"
 	"github.com/sirupsen/logrus"
-	"go-okx/define"
 	"net/http"
 )
 

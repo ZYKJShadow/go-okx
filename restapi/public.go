@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"go-okx/define"
+	"github.com/ZYKJShadow/go-okx/define"
 	"io"
 	"net/http"
 	"net/url"
