@@ -1,4 +1,4 @@
-module go-okx
+module github.com/ZYKJShadow/go-okx
 
 go 1.20
 
