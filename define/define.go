@@ -37,10 +37,20 @@ const (
 
 // market url
 const (
-	GetTickersUrl    = "/api/v5/market/GetTickersUrl"
-	GetCandlesUrl    = "/api/v5/market/candles"
-	GetHisCandlesUrl = "/api/v5/market/history-candles"
-	GetTickerUrl     = "/api/v5/market/ticker"
+	GetTickersUrl                = "/api/v5/market/tickers"                         // 获取所有ticker信息
+	GetCandlesUrl                = "/api/v5/market/candles"                         // 获取交易产品k线
+	GetHisCandlesUrl             = "/api/v5/market/history-candles"                 // 获取交易产品历史k线
+	GetTickerUrl                 = "/api/v5/market/ticker"                          // 获取单个ticker信息
+	GetIndexTickersUrl           = "/api/v5/market/index-tickers"                   // 获取指数行情
+	GetBooksUrl                  = "/api/v5/market/books"                           // 获取产品深度
+	GetBooksLiteUrl              = "/api/v5/market/books-lite"                      // 获取产品轻量深度
+	GetIndexCandlesUrl           = "/api/v5/market/index-candles"                   // 获取指数K线数据
+	GetHistoryIndexCandlesUrl    = "/api/v5/market/history-index-candles"           // 获取指数历史k线数据
+	GetMarkPriceCandlesUrl       = "/api/v5/market/mark-price-candles"              // 获取标记价格k线数据
+	GetHistoryMarkPriceUrl       = "/api/v5/market/history-mark-price-candles"      // 获取标记价格数据
+	GetTradesUrl                 = "/api/v5/market/trades"                          // 获取交易产品公共成交数据
+	GetHistoryTradesUrl          = "/api/v5/market/history-trades"                  // 获取交易产品历史公共成交数据
+	GetInstrumentFamilyTradesUrl = "/api/v5/market/option/instrument-family-trades" // 获取期权品种公共成交记录
 )
 
 // trade url

@@ -3,6 +3,7 @@ package restapi
 import (
 	"errors"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"go-okx/define"
 	"net/http"
 )
@@ -10,7 +11,7 @@ import (
 // PostOrder 下单
 func (c *ApiConfig) PostOrder(order define.Order) (res define.OrderResult, err error) {
 
-	fmt.Printf("下单请求提交:\n产品id:%v\n交易模式:%v\n方向:%v\n订单类型:%v\n数量:%v\n计价方式:%v\n", order.InstId, order.TdMode, order.Side, order.OrdType, order.Sz, order.TgtCcy)
+	logrus.Infof("下单请求提交:\n产品id:%v\n交易模式:%v\n方向:%v\n订单类型:%v\n数量:%v\n计价方式:%v\n", order.InstId, order.TdMode, order.Side, order.OrdType, order.Sz, order.TgtCcy)
 
 	err = c.SendRequest(define.OrderUrl, &order, &res, http.MethodPost, false)
 

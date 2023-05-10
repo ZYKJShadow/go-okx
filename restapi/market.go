@@ -70,8 +70,68 @@ func (c *ApiConfig) GetHistoryCandles(instId, bar, after, before, limit string) 
 	return
 }
 
+func (c *ApiConfig) GetHistoryIndexCandles(instId, bar, after, before, limit string) (res define.Candles, err error) {
+
+	if instId == "" {
+		err = errors.New("instId empty param")
+		return
+	}
+
+	requestUrl := fmt.Sprintf("%s?instId=%s", define.GetHistoryIndexCandlesUrl, instId)
+
+	if bar != "" {
+		requestUrl = fmt.Sprintf("%s&bar=%s", requestUrl, bar)
+	}
+
+	if after != "" {
+		requestUrl = fmt.Sprintf("%s&after=%s", requestUrl, after)
+	}
+
+	if before != "" {
+		requestUrl = fmt.Sprintf("%s&before=%s", requestUrl, before)
+	}
+
+	if limit != "" {
+		requestUrl = fmt.Sprintf("%s&limit=%s", requestUrl, limit)
+	}
+
+	err = c.SendRequest(requestUrl, nil, &res, http.MethodGet, true)
+
+	return
+}
+
+func (c *ApiConfig) GetIndexCandles(instId, bar, after, before, limit string) (res define.Candles, err error) {
+
+	if instId == "" {
+		err = errors.New("instId empty param")
+		return
+	}
+
+	requestUrl := fmt.Sprintf("%s?instId=%s", define.GetIndexCandlesUrl, instId)
+
+	if bar != "" {
+		requestUrl = fmt.Sprintf("%s&bar=%s", requestUrl, bar)
+	}
+
+	if after != "" {
+		requestUrl = fmt.Sprintf("%s&after=%s", requestUrl, after)
+	}
+
+	if before != "" {
+		requestUrl = fmt.Sprintf("%s&before=%s", requestUrl, before)
+	}
+
+	if limit != "" {
+		requestUrl = fmt.Sprintf("%s&limit=%s", requestUrl, limit)
+	}
+
+	err = c.SendRequest(requestUrl, nil, &res, http.MethodGet, true)
+
+	return
+}
+
 // GetCandles 接口限速1次/50ms
-func (c *ApiConfig) GetCandles(instId, bar, after, before, limit, proxy string, isSimulate bool) (res define.Candles, err error) {
+func (c *ApiConfig) GetCandles(instId, bar, after, before, limit string) (res define.Candles, err error) {
 
 	if instId == "" {
 		err = errors.New("instId empty param")

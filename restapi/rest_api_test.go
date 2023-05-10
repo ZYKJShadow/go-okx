@@ -130,3 +130,165 @@ func TestPostAlgoOrder(t *testing.T) {
 
 	t.Logf("%+v", res)
 }
+
+// 获取系统时间
+func TestGetSystemTime(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, false)
+
+	res, err := c.GetSystemTime()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+}
+
+// 获取所有产品行情信息
+func TestGetAllTickers(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, false)
+
+	// 永续合约产品行情信息
+	res, err := c.GetAllTickers(define.SWAP)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+	// 币币产品行情信息
+	res, err = c.GetAllTickers(define.SPOT)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+	// 交割合约产品行情信息
+	res, err = c.GetAllTickers(define.FUTURES)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+	// 期权合约产品行情信息
+	res, err = c.GetAllTickers(define.OPTION)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+}
+
+// 获取单个产品行情信息
+func TestGetTicker(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+
+	// 永续合约产品行情信息
+	res, err := c.GetTicker("BTC-USDT-SWAP")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+	// 币币产品行情信息
+	res, err = c.GetTicker("BTC-USDT")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+	// 交割合约产品行情信息
+	res, err = c.GetTicker("BTC-USD-210326")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+	// 期权合约产品行情信息
+	res, err = c.GetTicker("BTC-USD-210326-40000-C")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+}
+
+// 获取产品K线数据
+func TestGetCandles(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+
+	// 永续合约产品行情信息
+	res, err := c.GetCandles("BTC-USDT-SWAP", define.H, "", "", "100")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+}
+
+// 获取产品历史K线数据
+func TestGetHistoryCandles(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+
+	// 永续合约产品行情信息
+	res, err := c.GetHistoryCandles("BTC-USDT-SWAP", define.H, "1683687600000", "", "1")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+}
+
+// 获取指数K线数据
+func TestGetIndexCandles(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+
+	// 永续合约产品行情信息
+	res, err := c.GetIndexCandles("BTC-USDT", define.H, "", "", "100")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+}
+
+func TestGetHistoryIndexCandles(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+
+	// 永续合约产品行情信息
+	res, err := c.GetHistoryIndexCandles("BTC-USDT", define.H, "1683687600000", "", "1")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+}

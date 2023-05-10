@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"go-okx/define"
 	"io"
 	"net/http"
@@ -87,6 +88,7 @@ func (c *ApiConfig) SendRequest(requestUrl string, msg interface{}, res interfac
 	if err != nil {
 		return err
 	}
+	fmt.Println(string(ret))
 
 	if res != nil {
 		err = json.Unmarshal(ret, &res)

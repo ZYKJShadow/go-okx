@@ -7,7 +7,6 @@ import (
 	"github.com/ZYKJShadow/recws"
 	"github.com/google/uuid"
 	"github.com/tidwall/gjson"
-	"github.com/zeromicro/go-zero/core/logx"
 	"go-okx/define"
 	"net/http"
 	"net/url"
@@ -52,13 +51,11 @@ func (ws *WS) SetProxy(proxyURL string) (err error) {
 	if err != nil {
 		return
 	}
-	logx.Infof("[ws][%s] proxy url:%s", proxyURL, purl)
 	ws.conn.Proxy = http.ProxyURL(purl)
 	return
 }
 
 func (ws *WS) Start() {
-	logx.Infof("wsURL: %v", ws.wsURL)
 	ws.conn.Dial(ws.wsURL, nil)
 	go ws.run()
 }
@@ -132,12 +129,10 @@ func (ws *WS) run() {
 		select {
 		case <-ctx.Done():
 			go ws.conn.Close()
-			logx.Infof("Websocket closed %s", ws.conn.GetURL())
 			return
 		default:
 			_, msg, err := ws.conn.ReadMessage()
 			if err != nil {
-				logx.Errorf("Read error: %v", err)
 				time.Sleep(time.Millisecond * 200)
 				continue
 			}
@@ -151,7 +146,6 @@ func (ws *WS) subscribeHandler() error {
 		//log.Printf("sub: %#v", v)
 		err := ws.sendWSMessage(v)
 		if err != nil {
-			logx.Errorf("%v", err)
 			return err
 		}
 	}
@@ -163,16 +157,13 @@ func (ws *WS) handleMsg(msg []byte) {
 	var wsCommon define.WSCommon
 	err := json.Unmarshal(msg, &wsCommon)
 	if err != nil {
-		logx.Error(err)
 		return
 	}
 
 	switch wsCommon.Event {
 	case "error":
-		logx.Error(wsCommon.Msg)
 		return
 	case "subscribe":
-		logx.Info("subscribe successfully")
 		return
 	default:
 		ret := gjson.ParseBytes(msg)
@@ -181,7 +172,6 @@ func (ws *WS) handleMsg(msg []byte) {
 			var kline define.WSKline
 			err = json.Unmarshal(msg, &kline)
 			if err != nil {
-				logx.Error(err)
 				return
 			}
 			switch channel {
@@ -196,7 +186,6 @@ func (ws *WS) handleMsg(msg []byte) {
 			case "candle4H":
 				ws.klineCallback(kline, define.FourH)
 			default:
-				logx.Errorf("not select channel %s", channel)
 			}
 		}
 	}
