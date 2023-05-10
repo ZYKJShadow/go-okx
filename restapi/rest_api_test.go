@@ -278,12 +278,82 @@ func TestGetIndexCandles(t *testing.T) {
 
 }
 
+// 获取指数历史K线数据
 func TestGetHistoryIndexCandles(t *testing.T) {
 
 	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
 
 	// 永续合约产品行情信息
 	res, err := c.GetHistoryIndexCandles("BTC-USDT", define.H, "1683687600000", "", "1")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+}
+
+// 设置持仓模式
+func TestSetPosMode(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+
+	err := c.SetPosMode(define.SetPosMode{PosMode: define.LongShortMode})
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+}
+
+// 设置杠杆倍数
+func TestSetLeverage(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+
+	err := c.SetLeverage(define.SetLeverage{InstId: "BTC-USDT-SWAP", Lever: "10", MgnMode: define.Cross})
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+}
+
+// 获取持仓信息
+func TestGetPos(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+
+	res, err := c.GetPos(define.SWAP, "BTC-USDT-SWAP", "")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+}
+
+func TestGetPosHistory(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+
+	res, err := c.GetPositionsHistory(define.SWAP, "BTC-USDT-SWAP", define.Cross, "2", "", "", "", "")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Logf("%+v", res.Data)
+
+}
+
+func TestGetBalance(t *testing.T) {
+
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+
+	res, err := c.GetBalance([]string{"BTC", "USDT"})
 	if err != nil {
 		t.Error(err)
 		return

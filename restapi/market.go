@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"go-okx/define"
 	"net/http"
+	"net/url"
 )
 
 func (c *ApiConfig) GetAllTickers(instType string) (res define.Tickers, err error) {
@@ -47,23 +48,26 @@ func (c *ApiConfig) GetHistoryCandles(instId, bar, after, before, limit string) 
 		return
 	}
 
-	requestUrl := fmt.Sprintf("%s?instId=%s", define.GetHisCandlesUrl, instId)
+	params := url.Values{}
+	params.Add("instId", instId)
 
 	if bar != "" {
-		requestUrl = fmt.Sprintf("%s&bar=%s", requestUrl, bar)
+		params.Add("bar", bar)
 	}
 
 	if after != "" {
-		requestUrl = fmt.Sprintf("%s&after=%s", requestUrl, after)
+		params.Add("after", after)
 	}
 
 	if before != "" {
-		requestUrl = fmt.Sprintf("%s&before=%s", requestUrl, before)
+		params.Add("before", before)
 	}
 
 	if limit != "" {
-		requestUrl = fmt.Sprintf("%s&limit=%s", requestUrl, limit)
+		params.Add("limit", limit)
 	}
+
+	requestUrl := fmt.Sprintf("%s?%s", define.GetHisCandlesUrl, params.Encode())
 
 	err = c.SendRequest(requestUrl, nil, &res, http.MethodGet, true)
 
@@ -77,23 +81,26 @@ func (c *ApiConfig) GetHistoryIndexCandles(instId, bar, after, before, limit str
 		return
 	}
 
-	requestUrl := fmt.Sprintf("%s?instId=%s", define.GetHistoryIndexCandlesUrl, instId)
+	params := url.Values{}
+	params.Add("instId", instId)
 
 	if bar != "" {
-		requestUrl = fmt.Sprintf("%s&bar=%s", requestUrl, bar)
+		params.Add("bar", bar)
 	}
 
 	if after != "" {
-		requestUrl = fmt.Sprintf("%s&after=%s", requestUrl, after)
+		params.Add("after", after)
 	}
 
 	if before != "" {
-		requestUrl = fmt.Sprintf("%s&before=%s", requestUrl, before)
+		params.Add("before", before)
 	}
 
 	if limit != "" {
-		requestUrl = fmt.Sprintf("%s&limit=%s", requestUrl, limit)
+		params.Add("limit", limit)
 	}
+
+	requestUrl := fmt.Sprintf("%s?%s", define.GetHistoryIndexCandlesUrl, params.Encode())
 
 	err = c.SendRequest(requestUrl, nil, &res, http.MethodGet, true)
 

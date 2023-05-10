@@ -25,7 +25,9 @@ const (
 
 // account url
 const (
+	GetBalanceUrl   = "/api/v5/account/balance"
 	GetPos          = "/api/v5/account/positions"
+	GetPosHistory   = "/api/v5/account/positions-history"
 	PostSetPosMode  = "/api/v5/account/set-position-mode"
 	PostSetLeverage = "/api/v5/account/set-leverage"
 )
