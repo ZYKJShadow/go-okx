@@ -2,7 +2,7 @@ package restapi
 
 import (
 	"fmt"
-	"go-okx/define"
+	"github.com/ZYKJShadow/go-okx/define"
 	"testing"
 )
 
