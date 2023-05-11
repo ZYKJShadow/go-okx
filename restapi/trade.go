@@ -11,7 +11,7 @@ import (
 // PostOrder 下单
 func (c *ApiConfig) PostOrder(order define.Order) (res define.OrderResult, err error) {
 
-	logrus.Infof("下单请求提交:\n产品id:%v\n交易模式:%v\n方向:%v\n订单类型:%v\n数量:%v\n计价方式:%v\n", order.InstId, order.TdMode, order.Side, order.OrdType, order.Sz, order.TgtCcy)
+	logrus.Infof("下单请求提交:产品id:%v 交易模式:%v 方向:%v 订单类型:%v 数量:%v 计价方式:%v 委托价格:%v", order.InstId, order.TdMode, order.Side, order.OrdType, order.Sz, order.TgtCcy, order.Px)
 
 	err = c.SendRequest(define.OrderUrl, &order, &res, http.MethodPost, false)
 

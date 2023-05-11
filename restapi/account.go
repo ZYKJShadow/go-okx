@@ -133,3 +133,20 @@ func (c *ApiConfig) GetPositionsHistory(instType string, instId string, mgmMode 
 
 	return
 }
+
+func (c *ApiConfig) GetAccountPosRisk(instId string) (res define.AccountPosRiskResult, err error) {
+
+	requestUrl := fmt.Sprintf("%s?instId=%s", define.GetAccountPosRisk, instId)
+
+	err = c.SendRequest(requestUrl, nil, &res, http.MethodGet, false)
+
+	if err != nil {
+		return
+	}
+
+	if res.Code != "0" {
+		err = errors.New(res.Msg)
+	}
+
+	return
+}
