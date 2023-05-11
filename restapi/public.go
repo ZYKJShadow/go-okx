@@ -34,7 +34,11 @@ func (c *ApiConfig) SendRequest(requestUrl string, msg interface{}, res interfac
 	}
 
 	client := &http.Client{
-		Timeout: time.Duration(1) * time.Second,
+		Timeout: time.Duration(3) * time.Second,
+	}
+
+	if c.Timeout > 0 {
+		client.Timeout = time.Duration(c.Timeout) * time.Second
 	}
 
 	if c.Proxy != "" {

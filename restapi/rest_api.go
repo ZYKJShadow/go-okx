@@ -6,8 +6,9 @@ type ApiConfig struct {
 	Password  string
 	Simulate  bool // 模拟盘标识
 	Proxy     string
+	Timeout   int
 }
 
-func NewApiConfig(apiKey, secretKey, password, proxy string, simulate bool) *ApiConfig {
-	return &ApiConfig{ApiKey: apiKey, SecretKey: secretKey, Password: password, Simulate: simulate, Proxy: proxy}
+func NewApiConfig(apiKey, secretKey, password, proxy string, timeout int, simulate bool) *ApiConfig {
+	return &ApiConfig{ApiKey: apiKey, SecretKey: secretKey, Password: password, Simulate: simulate, Proxy: proxy, Timeout: timeout}
 }

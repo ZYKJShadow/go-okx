@@ -11,22 +11,15 @@ const (
 	SecretKey = ""
 	Password  = ""
 	Proxy     = ""
-	Simulate  = true
+	Simulate  = false
+	Timeout   = 3
 )
 
 func TestGetOrder(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
-	order := define.Order{InstId: "BTC-USDT-SWAP", TdMode: define.Cross, Side: define.Buy, PosSide: define.MakeLong, OrdType: define.Market, Sz: "100"}
-
-	res, err := c.PostOrder(order)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-
-	resp, err := c.GetOrder("BTC-USDT-SWAP", res.Data[0].OrdId, res.Data[0].ClOrdId)
+	resp, err := c.GetOrder("CETUS-USDT", "576476048092000256", "")
 	if err != nil {
 		t.Error(err)
 		return
@@ -46,7 +39,7 @@ func TestGetOrder(t *testing.T) {
 // 币币交易
 func TestCashPostOrder(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	// 买入价值100刀的BTC
 	order := define.Order{InstId: "BTC-USDT", TdMode: define.Cash, Side: define.Buy, OrdType: define.Market, Sz: "100", TgtCcy: define.QuoteCcy}
@@ -64,7 +57,7 @@ func TestCashPostOrder(t *testing.T) {
 // 合约交易
 func TestContractPostOrder(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	order := define.Order{InstId: "BTC-USDT-SWAP", TdMode: define.Cross, Side: define.Buy, PosSide: define.MakeLong, OrdType: define.Market, Sz: "100"}
 
@@ -80,7 +73,7 @@ func TestContractPostOrder(t *testing.T) {
 // 市价全平
 func TestPostClosePos(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	order := define.Order{InstId: "BTC-USDT-SWAP", TdMode: define.Cross, Side: define.Buy, PosSide: define.MakeLong, OrdType: define.Market, Sz: "100"}
 
@@ -102,7 +95,7 @@ func TestPostClosePos(t *testing.T) {
 // 策略下单
 func TestPostAlgoOrder(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	// 双向止盈止损
 	order := define.Order{
@@ -134,7 +127,7 @@ func TestPostAlgoOrder(t *testing.T) {
 // 获取系统时间
 func TestGetSystemTime(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, false)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, false)
 
 	res, err := c.GetSystemTime()
 	if err != nil {
@@ -149,7 +142,7 @@ func TestGetSystemTime(t *testing.T) {
 // 获取所有产品行情信息
 func TestGetAllTickers(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, false)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, false)
 
 	// 永续合约产品行情信息
 	res, err := c.GetAllTickers(define.SWAP)
@@ -192,7 +185,7 @@ func TestGetAllTickers(t *testing.T) {
 // 获取单个产品行情信息
 func TestGetTicker(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	// 永续合约产品行情信息
 	res, err := c.GetTicker("BTC-USDT-SWAP")
@@ -235,7 +228,7 @@ func TestGetTicker(t *testing.T) {
 // 获取产品K线数据
 func TestGetCandles(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	// 永续合约产品行情信息
 	res, err := c.GetCandles("BTC-USDT-SWAP", define.H, "", "", "100")
@@ -250,7 +243,7 @@ func TestGetCandles(t *testing.T) {
 // 获取产品历史K线数据
 func TestGetHistoryCandles(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	// 永续合约产品行情信息
 	res, err := c.GetHistoryCandles("BTC-USDT-SWAP", define.H, "1683687600000", "", "1")
@@ -265,7 +258,7 @@ func TestGetHistoryCandles(t *testing.T) {
 // 获取指数K线数据
 func TestGetIndexCandles(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	// 永续合约产品行情信息
 	res, err := c.GetIndexCandles("BTC-USDT", define.H, "", "", "100")
@@ -281,7 +274,7 @@ func TestGetIndexCandles(t *testing.T) {
 // 获取指数历史K线数据
 func TestGetHistoryIndexCandles(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	// 永续合约产品行情信息
 	res, err := c.GetHistoryIndexCandles("BTC-USDT", define.H, "1683687600000", "", "1")
@@ -297,7 +290,7 @@ func TestGetHistoryIndexCandles(t *testing.T) {
 // 设置持仓模式
 func TestSetPosMode(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	err := c.SetPosMode(define.SetPosMode{PosMode: define.LongShortMode})
 	if err != nil {
@@ -310,7 +303,7 @@ func TestSetPosMode(t *testing.T) {
 // 设置杠杆倍数
 func TestSetLeverage(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	err := c.SetLeverage(define.SetLeverage{InstId: "BTC-USDT-SWAP", Lever: "10", MgnMode: define.Cross})
 	if err != nil {
@@ -323,7 +316,7 @@ func TestSetLeverage(t *testing.T) {
 // 获取持仓信息
 func TestGetPos(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	res, err := c.GetPos(define.SWAP, "BTC-USDT-SWAP", "")
 	if err != nil {
@@ -337,7 +330,7 @@ func TestGetPos(t *testing.T) {
 
 func TestGetPosHistory(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	res, err := c.GetPositionsHistory(define.SWAP, "BTC-USDT-SWAP", define.Cross, "2", "", "", "", "")
 	if err != nil {
@@ -351,7 +344,7 @@ func TestGetPosHistory(t *testing.T) {
 
 func TestGetBalance(t *testing.T) {
 
-	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Simulate)
+	c := NewApiConfig(ApiKey, SecretKey, Password, Proxy, Timeout, Simulate)
 
 	res, err := c.GetBalance([]string{"BTC", "USDT"})
 	if err != nil {
