@@ -25,12 +25,26 @@ const (
 
 // account url
 const (
-	GetBalanceUrl     = "/api/v5/account/balance"
-	GetPos            = "/api/v5/account/positions"
-	GetPosHistory     = "/api/v5/account/positions-history"
-	PostSetPosMode    = "/api/v5/account/set-position-mode"
-	PostSetLeverage   = "/api/v5/account/set-leverage"
-	GetAccountPosRisk = "/api/v5/account/account-position-risk"
+	GetBalanceUrl              = "/api/v5/account/balance"
+	GetPos                     = "/api/v5/account/positions"
+	GetPosHistory              = "/api/v5/account/positions-history"
+	PostSetPosMode             = "/api/v5/account/set-position-mode"
+	PostSetLeverage            = "/api/v5/account/set-leverage"
+	GetAccountPosRisk          = "/api/v5/account/account-position-risk"
+	GetAccountBills            = "/api/v5/account/bills"
+	GetAccountBillsArchive     = "/api/v5/account/bills-archive"
+	GetAccountConfig           = "/api/v5/account/config"
+	GetAccountMaxSize          = "/api/v5/account/max-size"
+	GetAccountMaxAvailSize     = "/api/v5/account/max-avail-size"
+	PostAccountMarginBalance   = "/api/v5/account/position/margin-balance"
+	GetAccountMaxLoan          = "/api/v5/account/max-loan"
+	GetAccountTradeFee         = "/api/v5/account/trade-fee"
+	GetAccountInterestAccrued  = "/api/v5/account/interest-accrued"
+	GetAccountInterestRate     = "/api/v5/account/interest-rate"
+	PostAccountSetGreeks       = "/api/v5/account/set-greeks"
+	PostAccountSetIsolatedMode = "/api/v5/account/set-isolated-mode"
+	GetAccountMaxWithdrawal    = "/api/v5/account/max-withdrawal"
+	GetAccountRiskState        = "/api/v5/account/risk-state"
 )
 
 // public url

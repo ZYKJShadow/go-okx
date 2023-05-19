@@ -83,6 +83,13 @@ type ClosePos struct {
 	AutoCxl bool   `json:"autoCxl"` // 当市价全平时，平仓单是否需要自动撤销,默认为false
 }
 
+type MarginBalance struct {
+	InstId  string `json:"instId"`
+	PosSide string `json:"posSide"`
+	Type    string `json:"type"`
+	Amt     string `json:"amt"`
+}
+
 type AlgoOrderResult struct {
 	Common
 	Data []struct {
@@ -189,6 +196,96 @@ type GetOrderResult struct {
 		Category        string `json:"category"` // 订单种类
 		UTime           string `json:"uTime"`    // 订单状态更新时间，Unix时间戳的毫秒数格式，如：1597026383085
 		CTime           string `json:"cTime"`    // 订单创建时间，Unix时间戳的毫秒数格式， 如 ：1597026383085
+	} `json:"data"`
+}
+
+type AccountMaxSizeResult struct {
+	Common
+	Data []struct {
+		Ccy     string `json:"ccy"`
+		InstId  string `json:"instId"`
+		MaxBuy  string `json:"maxBuy"`
+		MaxSell string `json:"maxSell"`
+	} `json:"data"`
+}
+
+type AccountMarginBalanceResult struct {
+	Common
+	Data []struct {
+		Amt      string `json:"amt"`
+		Ccy      string `json:"ccy"`
+		InstId   string `json:"instId"`
+		Leverage string `json:"leverage"`
+		PosSide  string `json:"posSide"`
+		Type     string `json:"type"`
+	} `json:"data"`
+}
+
+type AccountMaxAvailSizeResult struct {
+	Common
+	Data []struct {
+		InstId    string `json:"instId"`
+		AvailBuy  string `json:"availBuy"`
+		AvailSell string `json:"availSell"`
+	} `json:"data"`
+}
+
+type AccountMaxLoanResult struct {
+	Common
+	Data []struct {
+		InstId  string `json:"instId"`
+		MgnMode string `json:"mgnMode"`
+		MgnCcy  string `json:"mgnCcy"`
+		MaxLoan string `json:"maxLoan"`
+		Ccy     string `json:"ccy"`
+		Side    string `json:"side"`
+	} `json:"data"`
+}
+
+type AccountConfigResult struct {
+	Common
+	Data []struct {
+		AcctLv         string        `json:"acctLv"`         // 账户层级
+		AutoLoan       bool          `json:"autoLoan"`       // 是否自动借币
+		CtIsoMode      string        `json:"ctIsoMode"`      // 衍生品的逐仓保证金划转模式
+		GreeksType     string        `json:"greeksType"`     // 当前希腊字母展示方式
+		Level          string        `json:"level"`          // 当前在平台上真实交易量的用户等级
+		LevelTmp       string        `json:"levelTmp"`       // 特约用户的临时体验用户等级
+		MgnIsoMode     string        `json:"mgnIsoMode"`     // 币币杠杆的逐仓保证金划转模式
+		PosMode        string        `json:"posMode"`        // 持仓方式
+		SpotOffsetType string        `json:"spotOffsetType"` // 现货对冲类型
+		Uid            string        `json:"uid"`            // 账户ID
+		Label          string        `json:"label"`          // 当前请求API Key的备注名
+		RoleType       string        `json:"roleType"`       // 用户角色
+		TraderInsts    []interface{} `json:"traderInsts"`    // 当前账号已经设置的带单合约
+		OpAuth         string        `json:"opAuth"`         // 是否开通期权交易
+		Ip             string        `json:"ip"`             // 绑定的ip地址
+	} `json:"data"`
+}
+
+type AccountBillsResult struct {
+	Common
+	Data []struct {
+		Bal       string `json:"bal"`
+		BalChg    string `json:"balChg"`
+		BillId    string `json:"billId"`
+		Ccy       string `json:"ccy"`
+		ExecType  string `json:"execType"`
+		Fee       string `json:"fee"`
+		From      string `json:"from"`
+		InstId    string `json:"instId"`
+		InstType  string `json:"instType"`
+		MgnMode   string `json:"mgnMode"`
+		Notes     string `json:"notes"`
+		OrdId     string `json:"ordId"`
+		Pnl       string `json:"pnl"`
+		PosBal    string `json:"posBal"`
+		PosBalChg string `json:"posBalChg"`
+		SubType   string `json:"subType"`
+		Sz        string `json:"sz"`
+		To        string `json:"to"`
+		Ts        string `json:"ts"`
+		Type      string `json:"type"`
 	} `json:"data"`
 }
 
